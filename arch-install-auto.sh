@@ -25,7 +25,11 @@ echo "Define swap partition size (MiB): "
 read SWAPSIZE
 
 echo "Creating partitions..."
-parted -s "/dev/${BLOCKDEV}" mklabel gpt mkpart primary fat32 1MiB 513MiB set 1 esp on mkpart linux-swap 513MiB "${SWAPSIZE}MiB" mkpart ext4 "${SWAPSIZE}MiB" 100%
+parted -s "/dev/${BLOCKDEV}" mklabel gpt
+parted -s "/dev/${BLOCKDEV}" mkpart primary fat32 1MiB 513MiB
+parted -s "/dev/${BLOCKDEV}" set 1 esp on
+parted -s "/dev/${BLOCKDEV}" mkpart linux-swap 513MiB "${SWAPSIZE}MiB"
+parted -s "/dev/${BLOCKDEV}" mkpart ext4 "${SWAPSIZE}MiB" 100%
 
 echo "Formatting partitions..."
 mkfs.vfat -F32 "/dev/${BLOCKDEV}1"
