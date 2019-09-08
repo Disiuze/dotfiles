@@ -49,23 +49,23 @@ arch-chroot /mnt /bin/bash <<"EOT"
 ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 echo "Local time set to Amsterdam."
 hwclock --systohc
-echo "en_US.UTF-8" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-echo "$(cat /etc/hostname)$HOSTNAME" > /etc/hostname
+echo "$HOSTNAME" > /etc/hostname
 echo "127.0.0.1	localhost" >> /etc/hosts
 echo "::1	localhost" >> /etc/hosts
 echo "127.0.1.1	$HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
-echo "Changing root password..."
-passwd
+echo "Setting root password to root."
+echo root:root | chpasswd
 
 echo "Detecting CPU Vendor..."
-if [ "$(lscpu)" =~ "Intel" ]; then
+if [[ "$(lscpu)" =~ "Intel" ]]; then
 	echo "Intel CPU detected."
 	pacman -S intel-microcode --noconfirm
 	MICROINITRD='initrd=/intel-ucode.img'
 fi
-if [ "$(lscpu)" =~ "AMD" ]; then
+if [[ "$(lscpu)" =~ "AMD" ]]; then
 	echo "AMD CPU detected."
 	pacman -S amd-microcode --noconfirm
 	MICROINITRD='initrd=/amd-ucode.img'
@@ -78,4 +78,5 @@ efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --lo
 EOT
 echo "Install complete, enable and/or disable network profiles as necessary."
 echo "Consider running the post-install script after rebooting."
+echo "NOTE: root password is 'root'!"
 exit 0
