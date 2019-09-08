@@ -81,7 +81,7 @@ if [[ "$(lscpu)" =~ "AMD" ]]; then
 	MICROINITRD='amd-ucode.img'
 fi
 
-ROOTUUID=$(blkid -o value -s UUID "/dev/${BLOCKDEV}3")
+ROOTUUID=$(blkid -o value -s PARTUUID "/dev/${BLOCKDEV}3")
 
 echo "Adding boot entry..."
 echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\'"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose" | bash
@@ -89,6 +89,7 @@ echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux
 echo "Install complete, enable and/or disable network profiles as necessary."
 echo "Consider running the post-install script after rebooting."
 echo "NOTE: root password is 'root'!"
+rm /root/blockdev.tmp
 exit 0
 EOT
 echo "Don't forget to unmount all partitions."
