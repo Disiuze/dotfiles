@@ -51,7 +51,7 @@ echo "Local time set to Amsterdam."
 hwclock --systohc
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
-echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "$HOSTNAME" > /etc/hostname
 echo "127.0.0.1	localhost" >> /etc/hosts
 echo "::1	localhost" >> /etc/hosts
@@ -62,21 +62,22 @@ echo root:root | chpasswd
 echo "Detecting CPU Vendor..."
 if [[ "$(lscpu)" =~ "Intel" ]]; then
 	echo "Intel CPU detected."
-	pacman -S intel-microcode --noconfirm
+	pacman -S intel-ucode --noconfirm
 	MICROINITRD='initrd=/intel-ucode.img'
 fi
 if [[ "$(lscpu)" =~ "AMD" ]]; then
 	echo "AMD CPU detected."
-	pacman -S amd-microcode --noconfirm
+	pacman -S amd-ucode --noconfirm
 	MICROINITRD='initrd=/amd-ucode.img'
 fi
 
-ROOTUUID=$(blkid -o value -s UUID "/dev/${BLOCKDEV})
+ROOTUUID=$(blkid -o value -s UUID "/dev/${BLOCKDEV}")
 
 echo "Adding boot entry..."
-efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode "root=PARTUUID=${ROOTUUID} rw ${MICROINITRD} initrd=\initramfs-linux.img" --verbose
+efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw '"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose
 echo "Install complete, enable and/or disable network profiles as necessary."
 echo "Consider running the post-install script after rebooting."
 echo "NOTE: root password is 'root'!"
 exit 0
 EOT
+echo "Don't forget to unmount all partitions."
