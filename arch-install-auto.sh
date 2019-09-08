@@ -24,6 +24,8 @@ read BLOCKDEV
 echo "Define swap partition size (MiB): "
 read SWAPSIZE
 
+let SWAPSIZE=513+$SWAPSIZE
+
 echo "Creating partitions..."
 parted -s "/dev/${BLOCKDEV}" mklabel gpt
 parted -s "/dev/${BLOCKDEV}" mkpart primary fat32 1MiB 513MiB
