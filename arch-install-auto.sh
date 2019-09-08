@@ -71,7 +71,7 @@ if [[ "$(lscpu)" =~ "AMD" ]]; then
 	MICROINITRD='initrd=/amd-ucode.img'
 fi
 
-ROOTUUID=$(blkid -o value -s UUID "/dev/${BLOCKDEV}")
+ROOTUUID=$(blkid -o value -s UUID "/dev/${BLOCKDEV}3")
 
 echo "Adding boot entry..."
 efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw '"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose
