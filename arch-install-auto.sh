@@ -74,7 +74,8 @@ fi
 ROOTUUID=$(blkid -o value -s UUID "/dev/${BLOCKDEV}3")
 
 echo "Adding boot entry..."
-efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw '"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose
+echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw '"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose" | bash
+echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw '"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose" > /root/efi-boot-vars
 echo "Install complete, enable and/or disable network profiles as necessary."
 echo "Consider running the post-install script after rebooting."
 echo "NOTE: root password is 'root'!"
