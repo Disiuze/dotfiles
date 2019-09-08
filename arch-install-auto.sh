@@ -44,6 +44,8 @@ pacstrap /mnt base base-devel dialog efibootmgr
 echo "Generating fstab file..."
 genfstab -U /mnt >> /mnt/etc/fstab
 
+echo "$BLOCKDEV" > /mnt/root/blockdev.tmp
+
 echo "Chrooting!"
 arch-chroot /mnt /bin/bash <<"EOT"
 ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
@@ -58,6 +60,8 @@ echo "::1	localhost" >> /etc/hosts
 echo "127.0.1.1	$HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 echo "Setting root password to root."
 echo root:root | chpasswd
+
+BLOCKDEV=$(cat /root/blockdev.tmp)
 
 echo "Detecting CPU Vendor..."
 if [[ "$(lscpu)" =~ "Intel" ]]; then
