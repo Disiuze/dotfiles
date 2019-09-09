@@ -23,6 +23,8 @@ echo "Input block device name: "
 read BLOCKDEV
 echo "Define swap partition size (MiB): "
 read SWAPSIZE
+echo "Enable microcode updates? [y/n]"
+read microask
 
 let SWAPSIZE=513+$SWAPSIZE
 
@@ -51,6 +53,7 @@ echo "Generating fstab file..."
 genfstab -U /mnt >> /mnt/etc/fstab
 
 echo "$BLOCKDEV" > /mnt/root/blockdev.tmp
+echo "$microask" > /mnt/root/microask.tmp
 
 echo "Chrooting!"
 arch-chroot /mnt /bin/bash <<"EOT"
@@ -68,9 +71,7 @@ echo "Setting root password to root."
 echo root:root | chpasswd
 
 BLOCKDEV=$(cat /root/blockdev.tmp)
-
-echo "Enable microcode updates? [y/n]"
-read microask
+microask=$(cat /root/microask.tmp)
 
 if [ "$microask" = 'y' ]; then
 echo "Detecting CPU Vendor..."
@@ -90,16 +91,17 @@ ROOTUUID=$(blkid -o value -s PARTUUID "/dev/${BLOCKDEV}3")
 
 echo "Adding boot entry..."
 if [ "$microask" = 'y' ]; then
-	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\'"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose" | bash
-	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\'"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose" > /root/efi-boot-vars
+	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label 'Arch Linux' --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\'"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose" | bash
+	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label 'Arch Linux' --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\'"${MICROINITRD}"' initrd=\initramfs-linux.img' --verbose" > /root/efi-boot-vars
 else
-	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\initramfs-linux.img' --verbose" | bash
-	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\initramfs-linux.img' --verbose" > /root/efi-boot-vars
+	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label 'Arch Linux' --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\initramfs-linux.img' --verbose" | bash
+	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label 'Arch Linux' --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\initramfs-linux.img' --verbose" > /root/efi-boot-vars
 fi
 echo "Install complete, enable and/or disable network profiles as necessary."
 echo "Consider running the post-install script after rebooting."
 echo "NOTE: root password is 'root'!"
 rm /root/blockdev.tmp
+rm /root/microask.tmp
 exit 0
 EOT
 echo "Don't forget to unmount all partitions."
