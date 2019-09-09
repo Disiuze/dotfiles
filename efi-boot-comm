@@ -1,1 +1,0 @@
-efibootmgr --disk /dev/sda --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=PARTUUID=1d20447c-70bf-6641-9f66-94bf36fb8294 rw initrd=\intel-ucode.img initrd=\initramfs-linux.img' --verbose
