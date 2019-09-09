@@ -69,7 +69,10 @@ echo root:root | chpasswd
 
 BLOCKDEV=$(cat /root/blockdev.tmp)
 
-function cpuvendor() {
+echo "Enable microcode updates? [y/n]"
+read microask
+
+if [ "$microask" = 'y' ]; then
 echo "Detecting CPU Vendor..."
 	if [[ "$(lscpu)" =~ "Intel" ]]; then
 		echo "Intel CPU detected."
@@ -81,13 +84,6 @@ echo "Detecting CPU Vendor..."
 		pacman -S amd-ucode --noconfirm
 		MICROINITRD='amd-ucode.img'
 	fi
-}
-
-echo "Enable microcode updates? [y/n]"
-read microask
-
-if [ "$microask" = 'y' ]; then
-	cpuvendor
 fi
 
 ROOTUUID=$(blkid -o value -s PARTUUID "/dev/${BLOCKDEV}3")
