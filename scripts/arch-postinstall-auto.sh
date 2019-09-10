@@ -100,7 +100,7 @@ esac
 
 if [ ! $UDESK = 'Deepin' ]; then
 	echo "Installing and enabling SDDM..."
-	pacman -s sddm --noconfirm
+	pacman -S sddm --noconfirm
 	systemctl enable sddm
 fi
 
@@ -112,7 +112,7 @@ if [ $saku = 'y' ]; then
 fi
 
 echo "su'ing into ${UNAME}, installing yay..."
-su $UNAME sh <<"EOT"
+su $UNAME bash <<"EOT"
 cd /home/$UNAME/
 git clone https://aur.archlinux.org/yay.git
 cd yay
