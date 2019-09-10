@@ -76,7 +76,7 @@ case $GPUDRIVER in
 esac
 
 echo "Installing Xorg group..."
-pacman -s xorg --noconfirm
+pacman -S xorg --noconfirm
 
 echo "What DE do you want to use?"
 echo "[ Deepin / KDE / MATE / Xfce ]"
