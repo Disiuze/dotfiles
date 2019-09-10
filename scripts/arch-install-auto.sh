@@ -98,7 +98,8 @@ else
 	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label 'Arch Linux' --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\initramfs-linux.img' --verbose" > /root/efi-boot-vars
 fi
 echo "Install complete, enable and/or disable network profiles as necessary."
-echo "Consider running the post-install script after rebooting."
+#echo "Consider running the post-install script after rebooting."
+echo "IMPORTANT: DO NOT RUN THE POST-INSTALL SCRIPT"
 echo "NOTE: root password is 'root'!"
 rm /root/blockdev.tmp
 rm /root/microask.tmp
@@ -106,8 +107,8 @@ exit 0
 EOT
 echo "Don't forget to unmount all partitions."
 
-echo "Download post-install script? [y/n]"
-read postinst
-if [ $postinst = 'y' ]; then
-	wget 'https://raw.githubusercontent.com/Disiuze/dotfiles/master/scripts/arch-postinstall-auto.sh' -O /mnt/root/arch-postinstall-auto.sh
-fi
+#echo "Download post-install script? [y/n]"
+#read postinst
+#if [ $postinst = 'y' ]; then
+#	wget 'https://raw.githubusercontent.com/Disiuze/dotfiles/master/scrip#ts/arch-postinstall-auto.sh' -O /mnt/root/arch-postinstall-auto.sh
+#fi

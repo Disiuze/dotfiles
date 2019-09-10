@@ -4,6 +4,9 @@ echo "-----Disiuze's Post-Install Script-----"
 echo "Ensure you have a working internet connection."
 echo "This script creates a new user, changes the default CLI editor to nano, installs a shell, a DE, and finally yay."
 
+echo "Script is currently bugged and caused a kernel panic, do not use."
+exit 0
+
 echo "Name the first user: "
 read UNAME
 
