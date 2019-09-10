@@ -105,3 +105,9 @@ rm /root/microask.tmp
 exit 0
 EOT
 echo "Don't forget to unmount all partitions."
+
+echo "Download post-install script? [y/n]"
+read postinst
+if [ $postinst = 'y' ]; then
+	wget 'https://raw.githubusercontent.com/Disiuze/dotfiles/master/scripts/arch-postinstall-auto.sh' -O /mnt/root/arch-postinstall-auto.sh
+fi
