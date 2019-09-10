@@ -126,5 +126,7 @@ echo 'set softwrap' >> /home/$UNAME/.nanorc
 if [ $saku = 'y' ]; then
 	wget 'https://raw.githubusercontent.com/Disiuze/dotfiles/master/.config/sakura/sakura.conf' -O '/home/$UNAME/.config/sakura/sakura.conf'
 
+chown -R $UNAME:wheel /home/$UNAME
+
 echo "Post-Install complete!"
 echo "Reboot ASAP to ensure the system still works."
