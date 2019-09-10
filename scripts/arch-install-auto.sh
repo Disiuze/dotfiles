@@ -47,7 +47,7 @@ mkdir /mnt/boot
 mount "/dev/${BLOCKDEV}1" /mnt/boot
 
 echo "Installing packages..."
-pacstrap /mnt base base-devel dialog efibootmgr
+pacstrap /mnt base base-devel dialog efibootmgr wpa_supplicant git wget
 
 echo "Generating fstab file..."
 genfstab -U /mnt >> /mnt/etc/fstab
