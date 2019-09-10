@@ -41,13 +41,13 @@ case $USHELL in
 		;;
 	zsh)
 		pacman -S zsh --noconfirm
-		echo "Changing ${UNAME}'s shell to sh..."
+		echo "Changing ${UNAME}'s shell to zsh..."
 		usermod -s /bin/zsh $UNAME
 		;;
 	fish)
 		pacman -S fish --noconfirm
 		echo "Changing ${UNAME}'s shell to fish..."
-		usermod -s /bin/sh $UNAME
+		usermod -s /bin/fish $UNAME
 		;;
 esac
 
