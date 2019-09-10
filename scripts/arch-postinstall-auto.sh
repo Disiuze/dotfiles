@@ -101,7 +101,7 @@ case $UDESK in
 		pacman -S xfce4 --noconfirm
 		;;
 	i3)
-		pacman -S i3-gaps --noconfirm
+		pacman -S i3-gaps dmenu --noconfirm
 		;;
 esac
 
@@ -118,14 +118,15 @@ if [ $saku = 'y' ]; then
 	pacman -S sakura --noconfirm
 fi
 
-echo "su'ing into ${UNAME}, installing yay..."
-su $UNAME <<"EOT"
-cd /home/$UNAME/
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-exit 0
-EOT
+echo "Creating yay installation script..."
+echo 'git clone https://aur.archlinux.org/yay.git' >> /home/$UNAME/yay-inst.sh
+echo 'cd yay' >> /home/$UNAME/yay-inst.sh
+echo 'makepkg -si' >> /home/$UNAME/yay-inst.sh
+chmod +rx /home/$UNAME/yay-inst.sh
+
+echo "Run 'yay-inst.sh' as ${UNAME} to install yay."
+# I'm not even saving time with this anymore
+# I don't know what's driving me to put everything in scripts
 
 echo "Finishing touches..."
 echo 'set linenumbers' >> /home/$UNAME/.nanorc
