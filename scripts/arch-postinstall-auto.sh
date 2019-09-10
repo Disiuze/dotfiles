@@ -53,7 +53,7 @@ esac
 
 pacman -S xf86-video-vesa mesa --noconfirm
 echo "What GPU driver should be used?"
-echo "[ AMD / ATI / Intel / nouveau / NVidia ]"
+echo "[ AMD / ATI / Intel / nouveau / NVidia / skip ]"
 read GPUDRIVER
 
 case $GPUDRIVER in
@@ -73,13 +73,16 @@ case $GPUDRIVER in
 		pacman -S nvidia nvidia-utils --noconfirm
 		echo "NOTE! If your machine has Optimus, it needs to set up manually! Check the Arch Wiki!"
 		;;
+	skip)
+		echo "Skipping driver install."
+		;;
 esac
 
 echo "Installing Xorg group..."
 pacman -S xorg --noconfirm
 
-echo "What DE do you want to use?"
-echo "[ Deepin / KDE / MATE / Xfce ]"
+echo "What DE/WM do you want to use?"
+echo "[ Deepin / KDE / MATE / Xfce / i3 ]"
 read UDESK
 
 case $UDESK in
@@ -96,6 +99,10 @@ case $UDESK in
 		;;
 	Xfce)
 		pacman -S xfce4 --noconfirm
+		;;
+	i3)
+		pacman -S i3-gaps --noconfirm
+		;;
 esac
 
 if [ ! $UDESK = 'Deepin' ]; then
@@ -112,7 +119,7 @@ if [ $saku = 'y' ]; then
 fi
 
 echo "su'ing into ${UNAME}, installing yay..."
-su $UNAME bash <<"EOT"
+su $UNAME <<"EOT"
 cd /home/$UNAME/
 git clone https://aur.archlinux.org/yay.git
 cd yay
