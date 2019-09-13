@@ -8,6 +8,9 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
+bind 'set show-all-if-ambiguous on'
+bind 'TAB:menu-complete'
+
 # Get aliases
 if [ -f ~/.bash_aliases ]; then
 . ~/.bash_aliases
