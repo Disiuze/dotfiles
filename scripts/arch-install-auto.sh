@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "-----Disiuze's Arch install script v1-----"
 echo "Ensure you have a working internet connection."
@@ -11,7 +11,7 @@ read HOSTUNAME
 EFIVARS="$(ls /sys/firmware/efi/efivars)"
 if [ -z "${EFIVARS}" ]; then
 	echo "UEFI mode not enabled, aborting."
-	exit 0
+	exit 1
 fi
 echo "UEFI mode enabled."
 
@@ -106,9 +106,3 @@ rm /root/microask.tmp
 exit 0
 EOT
 echo "Don't forget to unmount all partitions."
-
-#echo "Download post-install script? [y/n]"
-#read postinst
-#if [ $postinst = 'y' ]; then
-#	wget 'https://raw.githubusercontent.com/Disiuze/dotfiles/master/scrip#ts/arch-postinstall-auto.sh' -O /mnt/root/arch-postinstall-auto.sh
-#fi
