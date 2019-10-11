@@ -1,6 +1,8 @@
 #!/bin/bash
 
-echo "-----Disiuze's Arch install script v1-----"
+# This script was made for educational purposes
+
+echo "-----Disiuze's Arch install script-----"
 echo "Ensure you have a working internet connection."
 echo "This script overwrites all data on the selected disk."
 
@@ -47,7 +49,7 @@ mkdir /mnt/boot
 mount "/dev/${BLOCKDEV}1" /mnt/boot
 
 echo "Installing packages..."
-pacstrap /mnt base base-devel dialog efibootmgr wpa_supplicant git wget
+pacstrap /mnt linux pacman systemd base base-devel dialog efibootmgr wpa_supplicant git wget nano licenses man-db man-pages texinfo inetutils iproute2 iputils diffutils e2fsprogs jfsutils less device-mapper linux-firmware netctl perl sysfsutils usbutils which
 
 echo "Generating fstab file..."
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -98,11 +100,10 @@ else
 	echo "efibootmgr --disk "/dev/${BLOCKDEV}" --part 1 --create --label 'Arch Linux' --loader /vmlinuz-linux --unicode 'root=PARTUUID='"${ROOTUUID}"' rw initrd=\initramfs-linux.img' --verbose" > /root/efi-boot-vars
 fi
 echo "Install complete, enable and/or disable network profiles as necessary."
-#echo "Consider running the post-install script after rebooting."
-echo "IMPORTANT: DO NOT RUN THE POST-INSTALL SCRIPT"
 echo "NOTE: root password is 'root'!"
 rm /root/blockdev.tmp
 rm /root/microask.tmp
 exit 0
 EOT
 echo "Don't forget to unmount all partitions."
+aarch
