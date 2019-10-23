@@ -24,4 +24,26 @@ alias scr=scrshot
 
 export -f scrshot
 
+function bookmark() {
+	export $1="`pwd`"
+	echo "$1 bookmarked"
+}
+
+function umark() {
+	export $1=''
+	echo "$1 unmarked."
+}
+
+alias mark=bookmark
+alias bmark=bookmark
+
+export -f bookmark
+
+function vcd() {
+	cd $1
+	echo "Current directory: $(pwd)"
+}
+
+export -f vcd
+
 clear
