@@ -1,0 +1,6 @@
+mark() {
+	export $1="`pwd`"
+	echo "$1 bookmarked."
+}
+
+mark

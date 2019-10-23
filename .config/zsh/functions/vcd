@@ -1,0 +1,6 @@
+vcd() {
+	cd $1
+	echo "Current location: $(pwd)"
+}
+
+vcd

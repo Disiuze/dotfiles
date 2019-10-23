@@ -1,0 +1,6 @@
+# Requires FFmpeg
+scrshot() {
+	import ~/Screenshots/SCRSHOT_%Y-%m-%d-%M%S.png
+}
+
+scrshot

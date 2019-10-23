@@ -1,0 +1,6 @@
+umark() {
+	export $1=''
+	echo "$1 unmarked."
+}
+
+umark
