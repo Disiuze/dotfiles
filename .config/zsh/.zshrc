@@ -11,7 +11,7 @@ fi
 
 HOSTNAME=$(cat /etc/hostname)
 
-PS1="${CLEAR}[${RED}$USER${CLEAR}::${GREEN}$HOSTNAME${CLEAR}]# "
+PS1="${BLACK}[${RED}$USER${BLACK}::${GREEN}$HOSTNAME${BLACK}]${CLEAR}# "
 
 FUPATH=$ZDOTDIR/functions
 
