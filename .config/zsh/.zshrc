@@ -30,4 +30,6 @@ fi
 compinit
 promptinit
 
+cd
+
 clear
