@@ -5,13 +5,16 @@ setopt appendhistory autocd extendedglob notify
 unsetopt beep nomatch
 bindkey -e
 
+autoload -Uz colors && colors
+
 if [ -f ~/.config/zsh/colors ]; then
 . ~/.config/zsh/colors
 fi
 
 HOSTNAME=$(cat /etc/hostname)
+STATCOL="%(?.%F{green}.%F{red})"
 
-PS1="${BLACK}[${RED}$USER${BLACK}::${GREEN}$HOSTNAME${BLACK}]${CLEAR}# "
+PS1="${STATCOL}[${RED}$USER${STATCOL}::${BLUE}$HOSTNAME${STATCOL}]${STATCOL}# "
 
 FUPATH=$ZDOTDIR/functions
 
