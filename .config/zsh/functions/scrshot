@@ -1,6 +1,6 @@
 # Requires FFmpeg
 scrshot() {
-	import ~/Screenshots/SCRSHOT_%Y-%m-%d-%M%S.png
+	import ~/Screenshots/`date +"%Y-%m-%d_%H:%M:%S"`.png
 }
 
 scrshot
