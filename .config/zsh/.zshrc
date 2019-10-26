@@ -14,7 +14,7 @@ fi
 HOSTNAME=$(cat /etc/hostname)
 STATCOL="%(?.%F{green}.%F{red})"
 
-PS1="${STATCOL}[${RED}$USER${STATCOL}::${BLUE}$HOSTNAME${STATCOL}]${STATCOL}# "
+PS1="${STATCOL}[${RED}$USER${STATCOL}::${BLUE}$HOSTNAME${STATCOL}]${STATCOL}#${CLEAR} "
 
 FUPATH=$ZDOTDIR/functions
 
