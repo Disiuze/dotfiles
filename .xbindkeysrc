@@ -50,6 +50,9 @@
 "sakura"
   Control+Mod1 + backslash
 
+"xlock"
+  Control+Mod1 + l
+
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s
 #
