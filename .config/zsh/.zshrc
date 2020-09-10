@@ -35,6 +35,4 @@ promptinit
 
 cd
 
-eval "$(direnv hook zsh)"
-
 clear
