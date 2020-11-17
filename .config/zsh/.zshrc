@@ -13,8 +13,9 @@ fi
 
 HOSTNAME=$(cat /etc/hostname)
 STATCOL="%(?.%F{green}.%F{red})"
+NEWLINE=$'\n'
 
-PS1="${STATCOL}[${RED}$USER${STATCOL}::${BLUE}$HOSTNAME${STATCOL}]${STATCOL}#${CLEAR} "
+PS1="[${STATCOL}PWD:%/${CLEAR}]${NEWLINE}${CLEAR}[${RED}$USER${CLEAR}::${BLUE}$HOSTNAME${CLEAR}]# "
 
 FUPATH=$ZDOTDIR/functions
 
@@ -33,6 +34,5 @@ fi
 compinit
 promptinit
 
-cd
-
 clear
+
